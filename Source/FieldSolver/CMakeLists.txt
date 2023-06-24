@@ -6,6 +6,7 @@ foreach(D IN LISTS WarpX_DIMS)
         WarpXPushFieldsEM.cpp
         WarpXPushFieldsHybridPIC.cpp
         WarpX_QED_Field_Pushers.cpp
+        WarpXExternalEMFields.cpp
     )
 endforeach()
 
