@@ -1,10 +1,14 @@
-target_sources(WarpX
-  PRIVATE
-    ElectrostaticSolver.cpp
-    WarpXPushFieldsEM.cpp
-    WarpX_QED_Field_Pushers.cpp
-    WarpXExternalEMFields.cpp
-)
+foreach(D IN LISTS WarpX_DIMS)
+    warpx_set_suffix_dims(SD ${D})
+    target_sources(WarpX_${SD}
+      PRIVATE
+        ElectrostaticSolver.cpp
+        WarpXPushFieldsEM.cpp
+        WarpXPushFieldsHybridPIC.cpp
+        WarpX_QED_Field_Pushers.cpp
+        WarpXExternalEMFields.cpp
+    )
+endforeach()
 
 add_subdirectory(FiniteDifferenceSolver)
 add_subdirectory(London)
