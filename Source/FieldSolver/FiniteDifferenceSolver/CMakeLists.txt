@@ -1,27 +1,33 @@
-target_sources(WarpX
-  PRIVATE
-    ComputeDivE.cpp
-    EvolveB.cpp
-    EvolveBPML.cpp
-    EvolveE.cpp
-    EvolveEPML.cpp
-    EvolveF.cpp
-    EvolveFPML.cpp
-    EvolveG.cpp
-    EvolveECTRho.cpp
-    FiniteDifferenceSolver.cpp
-    MacroscopicEvolveE.cpp
-    MacroscopicEvolveEPML.cpp
-    ApplySilverMuellerBoundary.cpp
-    EvolveBLondon.cpp
-)
-
-if(WarpX_MAG_LLG)
-    target_sources(WarpX
+foreach(D IN LISTS WarpX_DIMS)
+    warpx_set_suffix_dims(SD ${D})
+    target_sources(WarpX_${SD}
       PRIVATE
-        MacroscopicEvolveHM_2nd.cpp
-        MacroscopicEvolveHM.cpp
-        EvolveHPML.cpp
+        ComputeDivE.cpp
+        EvolveB.cpp
+        EvolveBPML.cpp
+        EvolveE.cpp
+        EvolveEPML.cpp
+        EvolveF.cpp
+        EvolveFPML.cpp
+        EvolveG.cpp
+        EvolveECTRho.cpp
+        FiniteDifferenceSolver.cpp
+        HybridPICSolveE.cpp
+        MacroscopicEvolveE.cpp
+        ApplySilverMuellerBoundary.cpp
+        MacroscopicEvolveEPML.cpp
+        EvolveBLondon.cpp
     )
-endif()
+
+    if(WarpX_MAG_LLG)
+        target_sources(WarpX_${SD}
+          PRIVATE
+            MacroscopicEvolveHM_2nd.cpp
+            MacroscopicEvolveHM.cpp
+            EvolveHPML.cpp
+        )
+    endif()
+endforeach()
+
+add_subdirectory(HybridPICModel)
 add_subdirectory(MacroscopicProperties)
